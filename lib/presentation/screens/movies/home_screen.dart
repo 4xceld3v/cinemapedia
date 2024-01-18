@@ -33,20 +33,55 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
-
-    //final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final moviesSlideshow = ref.watch(moviesSlidesShowProvider);
 
-    return Column(
-      children: [
-
-        const CustomAppbar(),
-
-        MoviesSlideshow(movies: moviesSlideshow),
-
-
-
-      ],
-    );
+    return CustomScrollView(slivers: [
+       const SliverAppBar(
+        floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            title: CustomAppbar(),
+            titlePadding: EdgeInsets.zero,
+            centerTitle: false,
+          ),
+      ),
+      SliverList(
+          delegate: SliverChildBuilderDelegate((context, index) {
+        return Column(
+          children: [
+            MoviesSlideshow(movies: moviesSlideshow),
+            MovieHorizontalListview(
+              movies: nowPlayingMovies,
+              title: 'En cines',
+              subtitle: 'Miércoles 17',
+              loadNextPage: () =>
+                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+            ),
+            MovieHorizontalListview(
+              movies: nowPlayingMovies,
+              title: 'Proximamente',
+              subtitle: 'En este mes',
+              loadNextPage: () =>
+                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+            ),
+            MovieHorizontalListview(
+              movies: nowPlayingMovies,
+              title: 'Populares',
+              subtitle: 'Top 100',
+              loadNextPage: () =>
+                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+            ),
+            MovieHorizontalListview(
+              movies: nowPlayingMovies,
+              title: 'Mejor calificadas',
+              subtitle: 'Desde siempre',
+              loadNextPage: () =>
+                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+            ),
+            const SizedBox(height: 10)
+          ],
+        );
+      }, childCount: 1)),
+    ]);
   }
 }
