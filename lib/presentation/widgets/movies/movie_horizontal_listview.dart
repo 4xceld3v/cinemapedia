@@ -85,7 +85,8 @@ class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final titleStyle = Theme.of(context).textTheme.titleLarge;
+    final titleStyle = Theme.of(context).textTheme.titleMedium;
+    final subTitleStyle = Theme.of(context).textTheme.titleSmall;
 
 
     return Container(
@@ -100,7 +101,7 @@ class _Title extends StatelessWidget {
               visualDensity: VisualDensity.compact
             ),
             onPressed: (){},
-            child: Text(subtitle!),
+            child: Text(subtitle!, style: subTitleStyle),
             ),
         ],
       ),
