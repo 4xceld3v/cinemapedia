@@ -11,4 +11,6 @@ abstract class MoviesRepository {
   Future<List<Movie>>  getUpcomingMovies({ int page = 1 });
 
   Future<Movie>  getMoviesById( String movieId );
+
+  Future<List<Movie>> searchMovies( String query );
 }
