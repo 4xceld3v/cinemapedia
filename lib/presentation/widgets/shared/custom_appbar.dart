@@ -29,19 +29,21 @@ class CustomAppbar extends ConsumerWidget {
               Text('Cinemapedia', style: titleStyle),
               const Spacer(),
               IconButton(onPressed: () {
-
-                final movieRepository = ref.read(movieRepositoryProvider);
+                
+                final searchedMovies = ref.read(searchedMoviesProvider);
+                final searchQuery = ref.read(searchQueryProvider);
 
                 showSearch<Movie?>(
-                  context: context, 
+                  query: searchQuery,
+                  context: context,
                   delegate: SearchMovieDelegate(
-                    searchMovies: movieRepository.searchMovies
+                    initialMovies: searchedMovies,
+                    searchMovies: ref.read(searchedMoviesProvider.notifier).searchMovieByQuery
                   )
-                ).then(( movie ) {
-                  if(movie?.posterPath == "") return;
-                  context.push('/movie/${movie?.id}');
-                });
-                
+                ).then((movie) {
+                    if (movie == null) return;
+                    context.push('/movie/${movie.id}');
+                  });
               }, icon: const Icon(Icons.search))
             ],
           ),
