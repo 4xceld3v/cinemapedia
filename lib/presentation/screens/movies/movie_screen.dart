@@ -299,10 +299,10 @@ class _CustomGradient extends StatelessWidget {
   final List<Color> colors;
 
   const _CustomGradient({
-    required this.begin, 
+    this.begin = Alignment.centerLeft, 
+    this.end = Alignment.centerRight,
     required this.stops, 
-    required this.colors, 
-    this.end = Alignment.bottomCenter,
+    required this.colors 
   }):assert(stops.length == 2 && colors.length == 2, 'stops and colors must have a length of 2');
 
   @override
