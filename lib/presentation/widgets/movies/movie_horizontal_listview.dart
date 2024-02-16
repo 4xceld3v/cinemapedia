@@ -127,7 +127,7 @@ class _MoviePoster extends StatelessWidget {
                 }
                 return GestureDetector(
                   child:  FadeIn(child: child),
-                  onTap: () => context.push('/movie/${movie.id}'),
+                  onTap: () => context.push('/home/0/movie/${movie.id}'),
                 );
                
               }),
